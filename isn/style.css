@@ -1,6 +1,7 @@
 body {
 	margin : 0em;
 	font-family : 'Roboto', sans-serif;
+	text-align: center;
 }
 
 a  {
@@ -8,19 +9,23 @@ a  {
 	color : inherit;
 }
 
+h1 {
+	font-family : 'Pacifico', cursive;
+}
+
 .header {
 	background-color : white;
 	height : 3em;
 	width : 100%;
-	min-width : 20em;
 	position : fixed;
 	border-bottom : 1px black solid;
 }
 
 .footer {
+	text-align : center;
 	background-color : black;
-	height : 15em;
 	color : white;
+	padding-top : 1em;
 }
 
 .logo {
@@ -38,29 +43,37 @@ a  {
 	object-fit: cover;
 }
 
-.button {
+.button-9 {
 	border : 1px rgb(70, 201, 182) solid;
 	color : rgb(70, 201, 182);
 	font-size : 2em;
+	margin-right : 2em;
+	margin-left : 2em;
+	width : auto;
+	max-width : 50em;
+	text-align : center;
+}
+
+.button-cat {
 	float : right;
 	margin-top : 0.15em;
 	margin-right : 1em;
-	width : auto;
 }
 
 .txtBut {
-	text-align : center;
 	margin : auto;
 }
 
 .case-gray {
 	background-color : rgb(206, 206, 206);
-	height : 35em;
+	padding-top : 2em;
+	padding-bottom : 2em;
 }
 
 .case-white {
 	background-color : rgb(255, 255, 255);
-	height : 35em;
+	padding-top : 2em;
+	padding-bottom : 2em;
 }
 
 .waw {
@@ -71,19 +84,11 @@ a  {
 	max-width : 50em;
 }
 
-.textFooter {
-	text-align : center;
-	margin-left : auto;
-	margin-right : auto;
-	width : auto;
-	max-width : 50em;
-}
-
 .license {
-	float : bottom;
+	text-align : right;
 }
 
-.button:hover {
+.animButton:hover {
 	transition : 0.2s;
 	background-color : rgb(70, 201, 182);
 	color : white;
@@ -96,6 +101,7 @@ a  {
     }
 	
 	.logo {
-		margin-left : 0.5em;
+		text-align : center;
+		float : none;
 	}
 }
