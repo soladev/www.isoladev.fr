@@ -2,6 +2,9 @@ body {
 	margin : 0em;
 	font-family : 'Roboto', sans-serif;
 	text-align: center;
+    background-image: url("images/background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 a  {
@@ -11,6 +14,21 @@ a  {
 
 h1 {
 	font-family : 'Pacifico', cursive;
+}
+
+.icon {
+}
+
+.logo-image {
+	width : 15em;
+	height : 15em;
+	object-fit: contain;
+}
+
+.desc-text {
+	margin-left: 2em;
+	margin-right: 2em;
+	text-align : left;
 }
 
 .header {
@@ -39,23 +57,35 @@ h1 {
 
 .background-image {
 	width : 100%;
-	height : 35em;
-	object-fit: cover;
+	height : 15em;
+	color: black;
+    text-shadow: -2px 0 rgb(70, 201, 182), 0 2px rgb(70, 201, 182), 2px 0 rgb(70, 201, 182), 0 -2px rgb(70, 201, 182);
+}
+
+.background-text {
+	margin-top : 3em;
+	font-size : 3em;
 }
 
 .button-9 {
 	border : 1px rgb(70, 201, 182) solid;
 	color : rgb(70, 201, 182);
 	font-size : 2em;
-	margin-right : 2em;
-	margin-left : 2em;
+	padding-right : 0.1em;
+	padding-left : 0.1em;
+	padding-top : 0.05em;
 	width : auto;
 	text-align : center;
 }
 
+.button-marg {
+	margin-right : 2em;
+	margin-left : 2em;	
+}
+
 .button-cat {
 	float : right;
-	margin-top : 0.15em;
+	margin-top : 0.12em;
 	margin-right : 1em;
 }
 
@@ -64,7 +94,7 @@ h1 {
 }
 
 .case-gray {
-	background-color : rgb(206, 206, 206);
+	background-color : rgb(220, 220, 220);
 	padding-top : 2em;
 	padding-bottom : 2em;
 }
@@ -83,12 +113,16 @@ h1 {
 	max-width : 50em;
 }
 
+.link {
+	color : rgb(70, 201, 182);
+}
+
 .license {
 	text-align : right;
 }
 
 .animButton:hover {
-	transition : 0.2s;
+	transition : 0.4s;
 	background-color : rgb(70, 201, 182);
 	color : white;
 }
