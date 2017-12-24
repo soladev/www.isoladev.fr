@@ -132,4 +132,8 @@ h1 {
 		text-align : center;
 		float : none;
 	}
+	
+	.background-text {
+		font-size : 1.75em;
+	}
 }
