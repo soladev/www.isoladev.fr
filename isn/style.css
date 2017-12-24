@@ -122,6 +122,10 @@ h1 {
 	color : white;
 }
 
+.links {
+	margin-right : 3%;
+	margin-left : 3%
+}
 
 @media screen and (max-width: 481px) {
     .button-cat, .button-warp {
