@@ -16,9 +16,6 @@ h1 {
 	font-family : 'Pacifico', cursive;
 }
 
-.icon {
-}
-
 .logo-image {
 	width : 15em;
 	height : 15em;
@@ -107,10 +104,8 @@ h1 {
 
 .waw {
 	text-align : center;
-	margin-left : auto;
-	margin-right : auto;
-	width : auto;
-	max-width : 50em;
+	margin-left : 3%;
+	margin-right : 3%;
 }
 
 .link {
@@ -129,16 +124,12 @@ h1 {
 
 
 @media screen and (max-width: 40em) {
-    .button-cat {
+    .button-cat, .button-warp {
        visibility : hidden;
     }
 	
 	.logo {
 		text-align : center;
 		float : none;
-	}
-	
-	.background-text {
-		font-size : 1.5em;
 	}
 }
