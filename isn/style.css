@@ -135,5 +135,6 @@ h1 {
 	.logo {
 		text-align : center;
 		float : none;
+		margin : 0;
 	}
 }
