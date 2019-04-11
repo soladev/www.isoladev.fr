@@ -109,7 +109,8 @@ header {
 
 .content > p {
 	padding : 0 5% 0 5%;
-	text-align : justify;
+	text-align : center;
+	font-family : 'Inconsolata', serif;
 }
 
 .article {
