@@ -11,30 +11,55 @@
 </head>
 <body>
 	<nav>
-		<h1><a href="index.html">Soladev</a></h1>
 		<a href="./projets">PROJETS</a>
 		<a href="./articles">ARTICLES</a>
+		<h1><a href="index.html">Soladev</a></h1>
 		<a href="./ctf">SOLA_CTF</a>
-		<a href="./me">QUI SUIS-JE</a>
+		<a href="me.html">QUI SUIS-JE</a>
 	</nav>
+	<div class=langDialog onclick="langDialogDismiss()">
+		<a href="javascript:void(0);"> English speaker ? <a href="./en">Here is the website in English</a></a>
+	</div>
 	<header>
 	</header>
 	<div class="content">
 		<div class="article">
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<h1>Mes récents projets</h1>
+			<div onclick="location.href = './projets';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
 			</div>
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<div onclick="location.href = './projets';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
 			</div>
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<div onclick="location.href = './projets';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+		</div>
+		<div class="article">
+			<h1>Mes récents articles</h1>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
@@ -48,3 +73,14 @@
 		
 	</footer>
 </body>
+
+<script type="text/javascript">
+var userLang = navigator.language || navigator.userLanguage; 
+if (userLang == "fr") {
+	$(".langDialog").css("display", "none");
+}
+
+function langDialogDismiss() {
+	$(".langDialog").slideUp(200);
+}
+</script>

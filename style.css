@@ -35,16 +35,37 @@ nav, header, footer, .content {
 
 nav {
 	position: fixed;
-	display : flex;
+	display : grid;
+	grid-template-areas : '. . Titre . .';
 	background-color : #162530;
 	align-items : center;
 	justify-content: space-around;
+	z-index : 1;
+}
+
+.langDialog {
+	display : block;
+	position : sticky;
+	width : 100%;
+	top : 3.5em;
+	z-index : 0;
+	padding : 0.1em;
+	font-size : 1.2em;
+	text-align : center;
+	background-color : #1f3342;
+	font-family : 'Roboto', sans-serif;
+}
+
+.langDialog > a {
+	text-decoration : none;
+	color : white;
 }
 
 nav > h1 {
 	display : inline-block;
-	font-size : 45px;
 	margin : 2px 0px 2px 5px;
+	font-size : 45px;
+	grid-area : Titre;
 }
 
 h1 > a {
@@ -66,29 +87,24 @@ nav > a {
 	font-weight : bold;
 	line-height : 50px;
 	font-family : 'Inconsolata', serif;
+	transition-duration : 0.1s;
 }
 
 nav > a:hover {
+	background-color : #1f3342;
 	border-bottom : 5px solid #30998B;
-	transition-duration : 0.2s;
 }
 
 header {
 	background-color: #131f28;
-	max-height: 300px;
-	min-height: 300px;
+	height: 100px;
 	overflow: hidden;
 }
 
 .content {
 	background-color : #131f28;
 	color : white;
-	min-height: 750px;
-}
-
-.content > img {
-	width : 700px;
-	height : 450px;
+	min-height: 1000px;
 }
 
 .content > p {
@@ -96,20 +112,26 @@ header {
 	text-align : justify;
 }
 
-.contact form {
-	max-width : 800px;
-	margin : auto;
-}
-
 .article {
 	margin : auto;
-	max-width : 1200px;
+	max-width : 1050px;
+}
+
+.article > h1 {
+	text-align : center;
+	font-family : 'Inconsolata', serif;
+	padding-bottom : 0.5em;
+	padding-top : 1.25em;
+}
+
+.content > h1 {
+	text-align : center;
 }
 
 .article > div {
 	display : inline-block;
 	padding : 20px;
-	width: 350px;
+	width: 300px;
 	margin : auto;
 	text-align: center;
 }
@@ -127,8 +149,51 @@ footer {
 	color : white;
 }
 
-footer a {
+a {
 	color : white;
+}
+
+nav > a + .activated {
+	background-color : #1f3342;
+	border-bottom : 5px solid #30998B;
+}
+
+/*********************/
+/*    ME.HTML PAGE   */
+/*********************/
+
+.me .content > p {
+	text-align : center;
+	font-family : "Inconsolata", serif;
+	font-size : 1.1em;
+	padding-bottom : 0.25em;
+}
+
+.me .content > h1 {
+	padding-bottom : 1em;
+}
+
+.me .social {
+	margin : auto;
+	display : block;
+	width : 132px;
+	height : 30px;
+	padding-bottom : 0.25em;
+}
+
+.me .social img {
+	display : inline-block;
+	width : 30px;
+	height : 30px;
+	transition-duration : 0.1s;
+}
+
+.me .social img:hover {
+	transform : rotate(20deg);
+}
+
+.invert {
+	filter: invert(100%);
 }
 
 /*********************/
@@ -138,12 +203,20 @@ footer a {
  @media only screen and (max-width: 830px) {
  	nav {
  		position : absolute;
-		display: block;
+		display: grid;
+		grid-template-areas : 'Titre' '.' '.' '.' '.';
  		position : static;
  		float : none;
  		text-align : center;
  		padding-top: 10px;
  		padding-bottom: 10px;
+ 	}
+	
+	nav h1 {
+ 		
+		border : 5px solid #162530;
+		display : block;
+ 		max-width : 96%;
  	}
 	
 	nav a {
@@ -156,6 +229,18 @@ footer a {
 	nav > a:hover {
 		border : 5px solid #30998B;
 		transition-duration : 0.2s;
+	}
+	
+	.langDialog {
+		position : static;
+	}
+	
+	header {
+		height : 0;
+	}
+	
+	.article > h1 {
+		font-size : 2.2em;
 	}
 
  }

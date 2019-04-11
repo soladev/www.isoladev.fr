@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta charset="utf-8"/>
-	<title>Soladev (en)</title>
+	<title>[EN] Soladev</title>
 	<link rel="stylesheet" type="text/css" href="../style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -11,30 +11,55 @@
 </head>
 <body>
 	<nav>
-		<h1><a href="index.html">Soladev</a></h1>
 		<a href="./projects">PROJECTS</a>
 		<a href="./articles">ARTICLES</a>
+		<h1><a href="index.html">Soladev</a></h1>
 		<a href="./ctf">SOLA_CTF</a>
-		<a href="./me">WHO AM I</a>
+		<a href="me.html">WHO AM I</a>
 	</nav>
+	<div class=langDialog onclick="langDialogDismiss()">
+		<a href="javascript:void(0);"> Vous parlez français ? <a href="../">Mon site en français est ici</a></a>
+	</div>
 	<header>
 	</header>
 	<div class="content">
 		<div class="article">
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<h1>My newer projects</h1>
+			<div onclick="location.href = './projects';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
 			</div>
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<div onclick="location.href = './projects';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
 			</div>
-			<div>
-				<img src="" alt="" title="" height="200" width="350"/>
+			<div onclick="location.href = './projects';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+		</div>
+		<div class="article">
+			<h1>My newer articles</h1>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
+				<div class="date">NàN</div>
+				<h2>NàN</h2>
+				<div class="resume">No content</div> 
+			</div>
+			<div onclick="location.href = './articles';">
+				<img src="" alt="" title="" height="170" width="300"/>
 				<div class="date">NàN</div>
 				<h2>NàN</h2>
 				<div class="resume">No content</div> 
@@ -48,3 +73,14 @@
 		
 	</footer>
 </body>
+
+<script type="text/javascript">
+var userLang = navigator.language || navigator.userLanguage; 
+if (userLang != "fr") {
+	$(".langDialog").css("display", "none");
+}
+
+function langDialogDismiss() {
+	$(".langDialog").slideUp(200);
+}
+</script>
