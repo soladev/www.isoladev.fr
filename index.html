@@ -11,76 +11,30 @@
 </head>
 <body>
 	<nav>
-		<a href="./projets">PROJETS</a>
-		<a href="./articles">ARTICLES</a>
-		<h1><a href="index.html">Soladev</a></h1>
+		<a class="activated" href="index.html">ARTICLES</a>
 		<a href="./ctf">SOLA_CTF</a>
-		<a href="me.html">QUI SUIS-JE</a>
+		<h1><a href="index.html">Soladev</a></h1>
+		<a href="friends.html">LES AMIS</a>
+		<a href="me.html">QUI SUIS-JE</a> 
 	</nav>
-	<div class=langDialog onclick="langDialogDismiss()">
-		<a href="javascript:void(0);"> English speaker ? <a href="./en">Here is the website in English</a></a>
-	</div>
 	<header>
 	</header>
 	<div class="content">
 		<div class="article">
-			<h1>Mes récents projets</h1>
-			<div onclick="location.href = './projets';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
+			<h1>Mes articles</h1>
+			<div onclick="location.href = './articles/smol';">
+				<h2>SMOL 📦</h2>
+                <div class="date">14 février 2020</div>
+				<div class="resume">J'ai eu l'occasion de réaliser une solution de supervision en JS/PHP cette année et j'ai décidé de le partager en open-source, gratuitement.</div> 
 			</div>
-			<div onclick="location.href = './projets';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
-			</div>
-			<div onclick="location.href = './projets';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
-			</div>
-		</div>
-		<div class="article">
-			<h1>Mes récents articles</h1>
-			<div onclick="location.href = './articles';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
-			</div>
-			<div onclick="location.href = './articles';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
-			</div>
-			<div onclick="location.href = './articles';">
-				<img src="" alt="" title="" height="170" width="300"/>
-				<div class="date">NàN</div>
-				<h2>NàN</h2>
-				<div class="resume">No content</div> 
+			<div onclick="location.href = './articles/intro-to-docker';">
+				<h2>Introduction à Docker 🐳</h2>
+                <div class="date">14 février 2020</div>
+				<div class="resume">Étant un fan de Docker, je l'utilise *quasiment* partout et tout le temps. Je vous explique dans cette article ma passion pour cette solution très pratique.</div>
 			</div>
 		</div>
 	</div>
 	<footer>
-		<a href="https://github.com/soladev/soladev.github.io/issues">Signaler un problème</a> - <a href="./en">English version</a>
-		<br/><br/>
 		Ce site est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution</a>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
-		
 	</footer>
 </body>
-
-<script type="text/javascript">
-var userLang = navigator.language || navigator.userLanguage; 
-if (userLang == "fr") {
-	$(".langDialog").css("display", "none");
-}
-
-function langDialogDismiss() {
-	$(".langDialog").slideUp(200);
-}
-</script>

@@ -12,7 +12,7 @@ img {
 
 body {
 	font-size : 14px;
-	font-family : 'Open Sans', sans-serif;
+	font-family : 'Montserrat', sans-serif;
 }
 
 p {
@@ -43,24 +43,6 @@ nav {
 	z-index : 1;
 }
 
-.langDialog {
-	display : block;
-	position : sticky;
-	width : 100%;
-	top : 3.5em;
-	z-index : 0;
-	padding : 0.1em;
-	font-size : 1.2em;
-	text-align : center;
-	background-color : #1f3342;
-	font-family : 'Roboto', sans-serif;
-}
-
-.langDialog > a {
-	text-decoration : none;
-	color : white;
-}
-
 nav > h1 {
 	display : inline-block;
 	margin : 2px 0px 2px 5px;
@@ -86,7 +68,7 @@ nav > a {
 	font-size: 20px;
 	font-weight : bold;
 	line-height : 50px;
-	font-family : 'Inconsolata', serif;
+	font-family : 'Montserrat', serif;
 	transition-duration : 0.1s;
 }
 
@@ -109,32 +91,36 @@ header {
 
 .content > p {
 	padding : 0 5% 0 5%;
-	text-align : center;
-	font-family : 'Inconsolata', serif;
+	text-align : justify;
+	font-family : 'Montserrat', serif;
 }
 
 .article {
 	margin : auto;
-	max-width : 1050px;
+	max-width : 70%;
+    text-align : justify;
 }
 
-.article > h1 {
+.article h1 {
 	text-align : center;
-	font-family : 'Inconsolata', serif;
+	font-family : 'Montserrat', serif;
 	padding-bottom : 0.5em;
-	padding-top : 1.25em;
+	padding-top : 0em;
+}
+
+.article > div {
+	display : block;
+	padding : 10px;
+	margin : auto;
+    cursor: pointer;
+}
+
+.article h2, .article .date {
+    display : inline-block;
 }
 
 .content > h1 {
 	text-align : center;
-}
-
-.article > div {
-	display : inline-block;
-	padding : 20px;
-	width: 300px;
-	margin : auto;
-	text-align: center;
 }
 
 .article .date {
@@ -154,7 +140,7 @@ a {
 	color : white;
 }
 
-nav > a + .activated {
+.activated {
 	background-color : #1f3342;
 	border-bottom : 5px solid #30998B;
 }
@@ -165,15 +151,17 @@ nav > a + .activated {
 
 .me .content > p {
 	text-align : center;
-	font-family : "Inconsolata", serif;
+	font-family : "Montserrat", serif;
 	font-size : 1.1em;
 	padding-bottom : 0.25em;
 }
 
-.me .content > h1 {
-	padding-bottom : 1em;
+.me .content h1 {
+	text-align : center;
+	font-family : 'Montserrat', serif;
+	padding-bottom : 0.5em;
+	padding-top : 0em;
 }
-
 .me .social {
 	margin : auto;
 	display : block;
@@ -201,9 +189,8 @@ nav > a + .activated {
 /* RESPONSIVE DESIGN */
 /*********************/
 
- @media only screen and (max-width: 830px) {
+ @media only screen and (max-width: 1000px) {
  	nav {
- 		position : absolute;
 		display: grid;
 		grid-template-areas : 'Titre' '.' '.' '.' '.';
  		position : static;
@@ -227,7 +214,7 @@ nav > a + .activated {
  		max-width : 96%;
  	}
 	
-	nav > a:hover {
+	nav > a:hover, .activated {
 		border : 5px solid #30998B;
 		transition-duration : 0.2s;
 	}
