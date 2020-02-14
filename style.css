@@ -91,11 +91,7 @@ header {
 
 .content > p {
 	padding : 0 5% 0 5%;
-<<<<<<< HEAD
 	text-align : justify;
-=======
-	text-align : center;
->>>>>>> 6550f4e732bd8c528d2ce8404f02bc0128faf9ec
 	font-family : 'Montserrat', serif;
 }
 
