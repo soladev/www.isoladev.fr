@@ -17,9 +17,6 @@
 		<a href="./ctf">SOLA_CTF</a>
 		<a href="me.html">QUI SUIS-JE</a>
 	</nav>
-	<div class=langDialog onclick="langDialogDismiss()">
-		<a href="javascript:void(0);"> English speaker ? <a href="./en">Here is the website in English</a></a>
-	</div>
 	<header>
 	</header>
 	<div class="content">
@@ -73,14 +70,3 @@
 		
 	</footer>
 </body>
-
-<script type="text/javascript">
-var userLang = navigator.language || navigator.userLanguage; 
-if (userLang == "fr") {
-	$(".langDialog").css("display", "none");
-}
-
-function langDialogDismiss() {
-	$(".langDialog").slideUp(200);
-}
-</script>
