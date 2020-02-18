@@ -21,7 +21,7 @@ p {
 
 h1 {
 	font-size : 72px;
-	color : white;
+	color : black;
 	font-family : 'Roboto', sans-serif;
 }
 
@@ -37,7 +37,7 @@ nav {
 	position: fixed;
 	display : grid;
 	grid-template-areas : '. . Titre . .';
-	background-color : #162530;
+	background-color : rgb(230, 230, 230);
 	align-items : center;
 	justify-content: space-around;
 	z-index : 1;
@@ -51,18 +51,18 @@ nav > h1 {
 }
 
 h1 > a {
-	color : white;
+	color : black;
 	text-decoration: none;
 }
 
 nav > a {
-	background-color : #162530;
-	color : white;
+	background-color : rgb(230, 230, 230);
+	color : rgb(0, 0, 0);
 	display : inline-block;
 	height : 50px;
 	padding : 2px 10px 2px 10px;
 	margin : 0px 30px 0px 30px;
-	border-bottom : 5px solid #162530;
+	border-bottom : 5px solid rgb(190, 190, 190, 0);
 	list-style: none;
 	text-decoration: none;
 	font-size: 20px;
@@ -72,20 +72,20 @@ nav > a {
 	transition-duration : 0.1s;
 }
 
-nav > a:hover {
-	background-color : #1f3342;
+nav > a:hover, .activated {
+	background-color : rgb(190, 190, 190);
 	border-bottom : 5px solid #30998B;
 }
 
 header {
-	background-color: #131f28;
+	background-color: white;
 	height: 100px;
 	overflow: hidden;
 }
 
 .content {
-	background-color : #131f28;
-	color : white;
+	background-color : white;
+	color : black;
 	min-height: 1000px;
 }
 
@@ -97,11 +97,11 @@ header {
 
 .article {
 	margin : auto;
-	max-width : 70%;
+	max-width : 60%;
     text-align : justify;
 }
 
-.article h1 {
+.content h1 {
 	text-align : center;
 	font-family : 'Montserrat', serif;
 	padding-bottom : 0.5em;
@@ -115,34 +115,70 @@ header {
     cursor: pointer;
 }
 
-.article h2, .article .date {
+.article h3 {
     display : inline-block;
+    font-size: 3em;    
 }
 
-.content > h1 {
-	text-align : center;
+.article h2 {
+    font-size : 3em;
+    padding-bottom: 0.5em;
 }
+
+.article h4 {
+    font-size : 2em;
+    padding-top : 0.25em;
+    padding-bottom: 0.1em;
+}
+
+.article img {
+    display: block;
+    margin: auto;
+} 
 
 .article .date {
 	color : gray;
 	font-style: italic;
+    font-size : 1.5em;
+    display : inline-block;
+}
 
+.article code, .article img {
+    margin-top: 0.1em;
+    margin-bottom: 1.5em;
+    padding: 1em;
+    max-width: 100%;
+}
+
+.article code {
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 0.5em;
+    display: block;
+    background-color: rgb(230, 230, 230);
+    padding: 0.5em;
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
+.article p {
+    padding-bottom: 1.5em;
+    font-size: 1.25em;
+    line-height: 1.5em;
+}
+
+.article a {
+    color : #105edd;
 }
 
 footer {
-	background-color: #162530;
+	background-color: rgb(230, 230, 230);
 	text-align : center;
 	padding : 20px 0px 20px 0px;
-	color : white;
+	color : black;
 }
 
-a {
-	color : white;
-}
-
-.activated {
-	background-color : #1f3342;
-	border-bottom : 5px solid #30998B;
+footer a {
+	color : black;
 }
 
 /*********************/
@@ -152,7 +188,8 @@ a {
 .me .content > p {
 	text-align : center;
 	font-family : "Montserrat", serif;
-	font-size : 1.1em;
+	font-size: 1.25em;
+    line-height: 1.5em;
 	padding-bottom : 0.25em;
 }
 
@@ -201,14 +238,12 @@ a {
  	}
 	
 	nav h1 {
- 		
-		border : 5px solid #162530;
 		display : block;
  		max-width : 96%;
  	}
 	
 	nav a {
- 		border : 5px solid #162530;
+ 		border :  5px solid rgb(190, 190, 190, 0);
 		display : block;
  		float : none;
  		max-width : 96%;
@@ -219,15 +254,11 @@ a {
 		transition-duration : 0.2s;
 	}
 	
-	.langDialog {
-		position : static;
-	}
-	
 	header {
 		height : 0;
 	}
 	
-	.article > h1 {
+	.content > h1 {
 		font-size : 2.2em;
 	}
 
