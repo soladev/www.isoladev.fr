@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Soladev</title>
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+</head>
+<body>
+	<nav>
+		<a href="../index.html">ARTICLES</a>
+		<a href="./ctf">SOLA_CTF</a>
+		<h1><a href="../index.html">Soladev</a></h1>
+		<a href="../friends.html">LES AMIS</a>
+		<a href="../me.html">QUI SUIS-JE</a> 
+	</nav>
+	<header>
+	</header>
+	<div class="content">
+        <div class="article">
+            <h2>Introduction à Docker 🐳</h2>
+            <p>Avant de parler de Docker, il faut déjà que j'explique ce qu'est un "container".</p>
+            <h4>Les containers</h4>
+            <p>Aujourd'hui, dans tous les domaines de l'informatique, la virtualisation s'impose comme une technologie prédominante et ce quelque soit le domaine. Mais faire tourner des systèmes d'exploitation entiers sur un ordinateur ou un serveur s'avère très couteux en terme de ressources. C'est (entre autre) pour pallier à ce problème qu'ont été inventés les "containers".</p>
+            <p>En termes techniques, les containers sont semblables aux machines virtuelles, à la majeure différence que <b>certaines fonctionnalités du kernel sont communes au système hôte ainsi qu'à tous les containers</b>, alors que <b>chaque machine virtuelle possède son propre kernel.</b></p>
+            <img src="../medias/docker-vs-vm.png" lat="docker-vs-vm"></img> 
+            <p>De façon imagée, les machines virtuelles (à gauche) ont toutes un système d'exploitation, assez lourd, ainsi que les applications à faire tourner sur la machine virtuelle. Un container (à droite) ne va que faire tourner l'application dans son propre environnement isolé.</p>
+            <p>Pour coordonner le tout, les machines virtuelles utilisent un hyperviseur (tel que VMWare, Virtualbox ou Hyper-V). Les containers utilisent eux un "engine", comme par exemple <b>Docker</b>.</p>
+            <h4>Docker</h4>
+            <p>Docker est donc un logiciel permettant l'exécution de programmes dans des containers. Il a été créé par Solomon Hykes et il est aujourd'hui écrit en Go à travers un programme devenu standard industriel pour les containers, appelé <b>containerd</b>. Ce dernier est maintenu par plus de 200 contributeurs sur Github. En gros, containerd est le composant "bas-niveau" sur lequel se base l'application exécutable Docker. <a href="https://docs.docker.com/install/" target="_blank">Voici le lien vers le guide d'installation (en anglais).</a></p>
+            <p>La façon de faire de Docker est relativement simple et elle l'est d'autant plus si vous avez déjà utilisé des machines virtuelles. Tout d'abord, il vous faut une "image". Il s'agit grossièrement d'un équivalent aux "images disques" d'une machine virtuelle, car elle contient les fonctionnalités de base du container. Un fonctionnalité très pratique de Docker est qu'il est possible de récupérer des images sur Internet, à travers le <b>Docker Hub</b>. Par exemple, pour récupérer une image d'Ubuntu dans sa version 19.10 :</p>
+            <code># docker pull ubuntu:19.10</code> 
+            <p>Et voilà, vous avez une image d'Ubuntu sur votre PC ! Pour la lancer, il vous faut juste faire la commande suivante :</p>
+            <code># docker run -it ubuntu:19.10</code>
+            <p>Il faut donc juste préciser le nom de l'image. L'option "it" permet d'ouvrir un terminal et de le garder ouvert. On se retrouve avec un prompt comme celui-ci :</p>
+            <code>root@2f72aecaf471:/# </code>
+            <p>Depuis ce terminal, on peut exécuter de commandes qui seront exécutées dans le container. Pour en sortir, il faut faire la commande "exit" ou alors Ctrl+C.</p>
+            <p>Une fois sorti du container, on peut lister tous les containers créés par Docker : </p>
+            <code>
+                # docker ps -a<br/>
+                <i>CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES<br/>
+                2f72aecaf471        ubuntu:19.10        "/bin/bash"         3 minutes ago       Exited (0) 2 minutes ago                       quizzical_ride</i>
+            </code>
+            <p>On remarque que notre container est arrêté, tout simplement parce que chaque container possède une commande d'entrée qui, si elle est stoppée, arrête le container. Pour notre exemple, il s'agit de la commande "/bin/bash", soit le shell bash dans lequel nous étions précédemment.</p>
+            <h4>Docker Hub</h4>
+            <p>J'en ai parlé rapidement précédemment, le <a href="https://hub.docker.com" target="_blank">Docker Hub</a> est sans aucun doute un énorme avantage de Docker. Il vous permet de récupérer des images facilement sur Internet et il est nourri par la communauté. Cela fait qu'il est possible de trouver des images de tout et n'importe quoi dessus. Imaginons par exemple que vous voulez faire un serveur web Apache. Sur votre PC, il aurait fallu installer Apache, ses dépendances, gérer les configurations et les ports si le port 80 est déjà utilisé... Mais il existe sur le Docker Hub une image Apache vous permettant de lancer rapidement un serveur web ! Il suffit de faire :</p>
+            <code># docker run -d -p 8000:80 -v my-website/:/var/www/html httpd</code>
+            <p>Et c'est tout ! Pour expliquer les options : "<b>-d</b>" permet de lacer le container en mode détaché, pour le laisser tourner en arrière-plan. "<b>-p 8000:80</b>" permet d'assigner le port 8000 de la machine hôte au port 80 du container car par défaut, aucun port ouvert par le container ne le sera sur la machine hôte. Enfin, "<b>-v my-website/:/var/www/html</b>" permet d'assigner le dossier my-website/ de la machine hôte au dossier /var/www/html sur le serveur Apache. On remarque aussi que l'on a pas utilisé la commande "docker pull" pour l'image, tout simplement parce que vu que Docker n'a pas trouvé l'image localement, il est directement allé la chercher sur le Docker Hub. Docker fournit aussi une syntaxe logique pour toutes les assignations entre hôte et container, à savoir que ce sera toujours sous la forme "<b>hôte:container</b>".</p>
+            <p>Ce petit serveur web est donc maintenant accessible à l'adresse <a href="http://localhost:8000" target="_blank">http://localhost:8000</a> !</p>
+            <p>Il faut savoir qu'avec des fichiers appelés "Dockerfile", il est possible de construire soit-même des images et de les publier sur le Docker Hub. J'en parlerais plus en détail dans un futur article, tout comme des fonctionnalités plus avancées comme docker-compose et docker-swarm ! En attendant, vous pouvez profiter du peu de reste de ce site :D</p>
+            </div>        
+	</div>
+	<footer>
+		Ce site est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution</a>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+	</footer>
+</body>
