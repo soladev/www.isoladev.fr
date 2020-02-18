@@ -262,6 +262,10 @@ footer a {
 		font-size : 2.2em;
 	}
 
+    .article {
+        max-width: 90%;
+    }
+
  }
 
 @media only screen and (max-width: 1250px) {
