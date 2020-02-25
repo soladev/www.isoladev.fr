@@ -160,10 +160,14 @@ header {
     line-height: 1.5em;
 }
 
-.article p {
+.article p, .article li {
     padding-bottom: 1.5em;
     font-size: 1.25em;
     line-height: 1.5em;
+}
+
+.article li {
+    margin-left : 1em;
 }
 
 .article a {
