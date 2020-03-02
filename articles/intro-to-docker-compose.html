@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Soladev</title>
+	<link rel="stylesheet" type="text/css" href="../style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet"> 
+	<script type="text/javascript" src="../jquery-3.2.1.js"></script>
+</head>
+<body>
+	<nav>
+		<a href="../index.html">ARTICLES</a>
+		<a href="./ctf">SOLA_CTF</a>
+		<h1><a href="../index.html">Soladev</a></h1>
+		<a href="../friends.html">LES AMIS</a>
+		<a href="../me.html">QUI SUIS-JE</a> 
+	</nav>
+	<header>
+	</header>
+	<div class="content">
+        <div class="article">
+        <h2 id="introduction-docker-compose-">Introduction à Docker Compose 🐳</h2>
+<p>Nous allons maintenant parler de Docker Compose, un élément qui va être essentiel pour les futurs articles de ce site et une fonctionnalité très pratique de Docker.</p>
+<h4 id="pourquoi-utiliser-docker-compose-">Pourquoi utiliser Docker Compose ?</h4>
+<p>Nous avons déjà vu comment lancer des containers, avec la commande <strong>docker run</strong>. Mais imaginons que nous devons utiliser une image apache2 avec deux ports mappés, un volume, un redémarrage automatique et la définition d&#39;une variable d&#39;environnement, on doit écrire :</p>
+<pre><code>$ docker run -d \ 
+  -<span class="ruby">p <span class="hljs-number">8080</span><span class="hljs-symbol">:</span><span class="hljs-number">80</span> \ 
+</span>  -<span class="ruby">p <span class="hljs-number">443</span><span class="hljs-symbol">:</span><span class="hljs-number">443</span> \ 
+</span>  -<span class="ruby">v $(pwd)/source/<span class="hljs-symbol">:/var/www/html</span> \
+</span>  -<span class="ruby">-restart-policy=always \
+</span>  -<span class="ruby">e foo=bar \ 
+</span>  -<span class="ruby">-name web-server \
+</span>  httpd
+</code></pre><p>Cela commence à faire de longues commandes, que l&#39;on pourrait être amené à devoir retaper à la main de zéro... De plus, on pourrait vouloir créer des réseaux Docker virtuels pour le lier avec un reverse proxy et/ou une base de données, partager des volumes... La configuration &quot;en dur&quot; peut s&#39;avérer vite complexe.</p>
+<p><strong>Docker Compose</strong> permet de résoudre tous ces problèmes. Comment ? Et bien à la base, dans la philosophie de Docker, <strong>un container correspond à un service</strong>. Pour déployer une application, on peut avoir besoin de plusieurs services qui communiquent entre eux, donc <strong>des containers qui communiquent entre eux</strong>. Cela peut se faire en faisant des &quot;<strong>--link</strong>&quot; entre les containers en brut, liant les deux containers dans un réseau privé entre eux, mais cela peut vite devenir compliqué à gérer. Docker Compose permet de <strong>composer une application en se basant sur plusieurs services</strong> et donc de faciliter leur déploiement.</p>
+<h4 id="sc-nario-d-utilisation-de-docker-compose">Scénario d&#39;utilisation de Docker Compose</h4>
+<p>Imaginons le scénario suivant : vous devez déployer une application Web possédant les capacités suivantes :</p>
+<ul>
+<li>Un <strong>Front-End Web en PHP</strong> (En version 7.2.3 parce que seule cette version fonctionne avec l&#39;application actuellement) ;</li>
+<li>Un <strong>Front-End Web de test en PHP</strong> (Version la plus récente pour faire des tests de fonctionnalités) ;</li>
+<li>Une <strong>base de données PostgreSQL</strong> ;</li>
+<li>Un <strong>cache Redis</strong> ;</li>
+<li>Un <strong>reverse proxy Nginx</strong> pour diriger les flux et n&#39;autoriser que certaines IPs sur le Front-end Web de test (un fichier de configuration est déjà fourni).</li>
+</ul>
+<p>Le chef de projet souhaite aussi que seuls les ports 80 et 443 soient exposés sur Internet pour des raisons de sécurité.</p>
+<p>Pour coordonner le déploiement de cette application, il vaut mieux utiliser Docker, car nous avons deux serveurs PHP avec des versions différentes. Les fonctionnalités de réseaux virtuels de Docker permettent aussi de cacher les ports des bases de données. Mais organiser le tout ne sera pas facile si on utilise pas Docker Compose. Voyons voir comment il faut s&#39;y prendre.</p>
+<h4 id="description-de-l-infrastructure-containeris-e-">Description de l&#39;infrastructure &quot;containerisée&quot;</h4>
+<p>Faisons quelques schémas pour commencer : on souhaite donc ce type d&#39;infrastructure :</p>
+<img src="../medias/flux-docker-app.png" alt="flux-docker-app"></img> 
+<p>(Petit clin d&#39;oeil à <a href="https://twitter.com/b0rk">Julia Evans</a> pour le style de schéma. Allez la suivre sur Twitter, elle fait des petits schémas explicatifs de certaines technologies régulièrement et elle en a fait notamment sur les containers)  </p>
+<p>Les containers peuvent communiquer sur un réseau privé commun au sein d&#39;une même application Docker Compose, ce qui permet d&#39;isoler les différents ports et d&#39;éviter d&#39;exposer la base de données sur Internet. Pour ça il faut bien comprendre ce qu&#39;on entend par mapping des ports lorsque l&#39;on utilise la commande <strong>docker run -p 8080:80</strong> : cela veut dire qu&#39;on ouvre un port sur la machine hôte (8080) qui redirige vers le port virtuel ouvert sur le container (80). Le serveur agit donc comme une sorte de firewall capable de translater des ports. Mais lorsque le container est lancé, il possède toujours le port virtuel 80 d&#39;ouvert, que l&#39;on ait mappé le port ou non. En créant un réseau virtuel ayant pour routeur principal votre machine hôte, les containers peuvent communiquer entre eux sans crainte qu&#39;un utilisateur extérieur se connecte à un port non-autorisé et accéder à Internet via la machine hôte. </p>
+<p>L&#39;objectif de NGINX est celui d&#39;un Reverse Proxy : Il permet notamment de rediriger des flux HTTP vers plusieurs serveurs (ou containers) en se basant sur certaines règles (noms de domaine, ports...). Il permet dans cette configuration d&#39;autoriser une liste d&#39;adresses IP définie à accéder au service Web Test.</p>
+<h4 id="-tape-1-la-structure-d-un-fichier-docker-compose">Étape 1 : La structure d&#39;un fichier Docker Compose</h4>
+<p>Pour commencer à utiliser Docker Compose, il faut déjà avoir un fichier <strong>docker-compose.yml</strong> placé dans le répertoire de notre projet. On va écrire dans ce fichier avec une syntaxe YAML :</p>
+<pre><code><span class="hljs-symbol">version:</span> <span class="hljs-string">'3'</span>
+<span class="hljs-symbol">services:</span>
+<span class="hljs-symbol">networks:</span>
+<span class="hljs-symbol">volumes:</span>
+</code></pre><p>Il s&#39;agit des quatre grandes parties importantes d&#39;un fichier docker-compose.yml. La partie <strong>services</strong> va définir tous les containers à utiliser, la partie <strong>networks</strong> va définir tous les réseaux virtuels et la partie <strong>volumes</strong> va définir tous les volumes de données. La <strong>version</strong> permet à Docker Compose de savoir quelle syntaxe le fichier va respecter. La version 3 est la plus récente, mais vous verrez probablement souvent la version 2 de cité. Il ne s&#39;agit pas d&#39;un clin d’œil à Python, juste que la version 3 prend en charge le mode Docker Swarm pour les clusters mais réduit dans le même temps quelques fonctionnalités de la version 2.</p>
+<h4 id="-tape-2-cr-ation-des-services">Étape 2 : Création des services</h4>
+<p>Dans la section services, on va rajouter le container du <strong>premier front-end Web</strong> :</p>
+<pre><code>version: '3'
+services:
+  prod-web:   # Ce nom est arbitraire, mieux vaut qu'il soit explicite
+    image: php:7.2.3-alpine
+    restart: always
+    volumes:
+      -<span class="ruby"> ./source/<span class="hljs-symbol">:/var/www/html/</span><span class="hljs-symbol">:ro</span>
+</span>    networks:
+      -<span class="ruby"> main_network</span>
+</code></pre><p>Et juste comme ça, nous avons défini dans un fichier la création d&#39;un service / container, nommé &quot;prod-web&quot;, avec la récupération du code source dans un dossier de la machine hôte. Ce dossier est monté en lecture seule sur le container par simple mesure de sécurité. Vous pouvez déjà vous demander où sont passés les ports. Nous reviendrons à cela un peu plus tard.</p>
+<p>On va maintenant passer aux bases de données <strong>PostgreSQL</strong> et <strong>Redis</strong>. L&#39;image Docker nous permet de faire beaucoup de choses directement niveau configuration et on peut tout faire à la suite du service précédent dans le fichier docker-compose.yml :</p>
+<pre><code>  d<span class="hljs-variable">b:</span>
+    image: postgre<span class="hljs-variable">s:alpine</span>
+    restar<span class="hljs-variable">t:</span> always
+    volume<span class="hljs-variable">s:</span>
+      - db_dat<span class="hljs-variable">a:</span>/var/lib/postgresql/data
+    environmen<span class="hljs-variable">t:</span>
+      - POSTGRES_PASSWORD=Ch4Ng3_m3
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=production
+    network<span class="hljs-variable">s:</span>
+      - main_network
+
+  <span class="hljs-keyword">redi</span><span class="hljs-variable">s:</span>
+    image: <span class="hljs-keyword">redi</span><span class="hljs-variable">s:5</span>.<span class="hljs-number">0.7</span>-alpine
+    restar<span class="hljs-variable">t:</span> always
+    network<span class="hljs-variable">s:</span>
+      - main_network
+</code></pre><p>Redis agit comme un cache et ne requiert quasiment jamais de configuration. La base de données PostgreSQL quant à elle a besoin d&#39;un mot de passe à minima, mais on peut préciser un utilisateur à ajouter et le nom de la base de données. Le volume <strong>db_data</strong> va être créé pour faire une rétention des données, même quand le container va être supprimé / recréé. </p>
+<p>Enfin, on configure le serveur <strong>NGINX</strong>, qui est le seul à posséder des ports exposés vers l&#39;extérieur :</p>
+<pre><code>  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      -<span class="ruby"> <span class="hljs-number">80</span><span class="hljs-symbol">:</span><span class="hljs-number">80</span>
+</span>      -<span class="ruby"> <span class="hljs-number">443</span><span class="hljs-symbol">:</span><span class="hljs-number">443</span>
+</span>    volumes:
+      -<span class="ruby"> ./nginx.<span class="hljs-symbol">conf:</span>/etc/nginx/nginx.<span class="hljs-symbol">conf:</span>ro
+</span>      -<span class="ruby"> ./nginx-files/<span class="hljs-symbol">:/etc/nginx/conf</span>.d/<span class="hljs-symbol">:ro</span>
+</span>    networks:
+      -<span class="ruby"> main_network</span>
+</code></pre><p>Les volumes déclarés ici sont pour placer toutes les configurations nécessaires à NGINX. Il existe d&#39;autres images intéressantes pour NGINX mais nous en parlerons un autre jour.</p>
+<p>La configuration du serveur de test est très similaire au premier service. Voyons maintenant les autres configurations à faire.</p>
+<h4 id="-tape-3-cr-ation-des-r-seaux-et-des-volumes">Étape 3 : Création des réseaux et des volumes</h4>
+<p>En général, il y a très peu de configurations à ce niveau-là. Je vous invite à aller voir la référence Docker Compose 3 pour avoir plus d&#39;informations sur la configuration des réseaux et des volumes. </p>
+<p>Il faut surtout <strong>penser à déclarer tous les réseaux et les volumes créés</strong> :</p>
+<pre><code><span class="hljs-symbol">networks:</span>
+<span class="hljs-symbol">  main_network:</span>
+<span class="hljs-symbol">volumes:</span>
+<span class="hljs-symbol">  db_data:</span>
+</code></pre><p>Une fois cela fait, le fichier est normalement complet ! On peut donc passer au déploiement !</p>
+<h4 id="-tape-finale-d-ploiement-et-maintenance">Étape finale : Déploiement et maintenance</h4>
+<p>Après tout ces efforts pour construire ce fichier, nous pouvons nous placer dans le dossier contenant le docker-compose.yml et utiliser la commande suivante :</p>
+<p>$ docker-compose up</p>
+<p>Et tadam ! L&#39;application se lance et vous pouvez suivre les logs en direct ! À noter que vous pouvez rajouter l&#39;option <strong>-d</strong> pour lancer l&#39;application en arrière-plan. À partir de là, voici quelques commandes pratiques :</p>
+<pre><code><span class="hljs-variable">$ </span>docker-compose config <span class="hljs-comment"># Vérifie et affiche la configuration </span>
+<span class="hljs-variable">$ </span>docker-compose pause [SERVICE] <span class="hljs-comment"># Met en pause un service</span>
+<span class="hljs-variable">$ </span>docker-compose unpause [SERVICE] <span class="hljs-comment"># Sort de pause un service</span>
+<span class="hljs-variable">$ </span>docker-compose exec [SERVICE] <span class="hljs-comment"># Lance une commande dans un service</span>
+<span class="hljs-variable">$ </span>docker-compose pull <span class="hljs-comment"># Récupère les dernières images des services</span>
+<span class="hljs-variable">$ </span>docker-compose down <span class="hljs-comment"># Arrête tous les services, détruit leurs containers <br/>et leurs réseaux (-v pour aussi supprimer les volumes)</span>
+</code></pre><p>Sachez aussi que le nom des services a une importance : en effet, il permet de faciliter les communications entre les containers. Les noms de chaque service sont ajoutés dans le fichier <strong>/etc/hosts</strong> de chaque container avec leurs adresses IP correspondante. Ce qui fait qu&#39;on peut sans problème utiliser la commande :</p>
+<pre><code><span class="hljs-symbol">$</span> docker-compose exec <span class="hljs-keyword">prod</span>-web ping db # Lance la commande <span class="hljs-string">"ping db"</span> dans <span class="hljs-keyword">le</span> service <span class="hljs-keyword">prod</span>-web
+</code></pre><p>Enfin, Docker Compose permet de faire du semblant de CI (<em>Continuous integration</em> ou intégration continue). Cela veut dire que vous pouvez modifier votre fichier docker-compose.yml et appliquer les changements avec une perte de service minime en utilisant <strong>docker-compose up -d</strong>. de la même façon, on peut utiliser <strong>docker-compose pull</strong> et <strong>docker-compose build</strong> pour mettre à jour les images puis <strong>docker-compose up -d</strong> pour appliquer les changements.</p>
+<p>Voilà pour cette introduction à Docker Compose, une technologie bien pratique ! Comme d&#39;habitude, si vous trouvez cette technologie intéressante n&#39;hésitez pas à la tester par vous-même ! La référence de Docker Compose est une très bonne ressource pour faire mumuse avec !</p>
+    </div>
+	</div>
+	<footer>
+		Ce site est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Licence Creative Commons Attribution</a>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Licence Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+	</footer>
+</body>
