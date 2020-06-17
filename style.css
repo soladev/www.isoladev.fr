@@ -112,7 +112,17 @@ header {
 	display : block;
 	padding : 10px;
 	margin : auto;
-    cursor: pointer;
+	margin-top : 0.5em;
+	margin-bottom : 0.5em;
+}
+
+.article > div > h3 {
+	cursor: pointer;
+}
+
+.article > div > h3:hover {
+	color: #30998B;
+	transition-duration : 0.2s;
 }
 
 .article h3 {
