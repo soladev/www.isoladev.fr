@@ -115,7 +115,7 @@ services:
 </code></pre><p>Une fois cela fait, le fichier est normalement complet ! On peut donc passer au déploiement !</p>
 <h4 id="-tape-finale-d-ploiement-et-maintenance">Étape finale : Déploiement et maintenance</h4>
 <p>Après tout ces efforts pour construire ce fichier, nous pouvons nous placer dans le dossier contenant le docker-compose.yml et utiliser la commande suivante :</p>
-<p>$ docker-compose up</p>
+<code>$ docker-compose up</code>
 <p>Et tadam ! L&#39;application se lance et vous pouvez suivre les logs en direct ! À noter que vous pouvez rajouter l&#39;option <strong>-d</strong> pour lancer l&#39;application en arrière-plan. À partir de là, voici quelques commandes pratiques :</p>
 <pre><code><span class="hljs-variable">$ </span>docker-compose config <span class="hljs-comment"># Vérifie et affiche la configuration </span>
 <span class="hljs-variable">$ </span>docker-compose pause [SERVICE] <span class="hljs-comment"># Met en pause un service</span>
